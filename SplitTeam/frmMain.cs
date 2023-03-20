@@ -25,9 +25,10 @@ namespace SplitTeam
             try
             {
                 dtTeam.Rows.Clear();
-                RandomAndAddToTable(memGoalKeeper.Text, dtTeam);
-                RandomAndAddToTable(memSeedPlayer.Text, dtTeam);
-                RandomAndAddToTable(memWeakPlayer.Text, dtTeam);
+                int stt = 1;
+                RandomAndAddToTable(memGoalKeeper.Text, dtTeam, ref stt);
+                RandomAndAddToTable(memSeedPlayer.Text, dtTeam , ref stt);
+                RandomAndAddToTable(memWeakPlayer.Text, dtTeam, ref stt);
                 grdTeam.DataSource = dtTeam;
 
             }
@@ -54,7 +55,7 @@ namespace SplitTeam
                 MessageBox.Show(this, ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void RandomAndAddToTable(string players, DataTable dtTeam)
+        private void RandomAndAddToTable(string players, DataTable dtTeam, ref int stt)
         {
             List<string> lstPlayer = GetListFromString(players);
             int len = lstPlayer.Count / 3 + (lstPlayer.Count % 3 > 0 ? 1 : 0);
@@ -63,22 +64,23 @@ namespace SplitTeam
                 DataRow drNew = dtTeam.NewRow();
                 dtTeam.Rows.Add(drNew);
             }
-            int stt = 1;
             while (lstPlayer.Count>0)
             {
                 int rowIndex = 0;
                 if (stt>3)
                 {
-                    rowIndex = stt / 3;
+                    rowIndex = stt % 3 == 0 ? stt / 3 - 1 : stt / 3;
                 }
                 string player = GetRandomAddRemove(ref lstPlayer);
+                int colIndex = stt % 3 == 0 ? 3 : stt % 3;
+               
                 if(stt<=3)
                 {
-                    dtTeam.Rows[rowIndex][$"A{stt}"] = player;
+                    dtTeam.Rows[rowIndex][$"A{colIndex}"] = player;
                 }
                 else
                 {
-                    dtTeam.Rows[rowIndex][$"A{(stt % 3)}"] = player;
+                    dtTeam.Rows[rowIndex][$"A{colIndex}"] = player;
                 }
                 
                 stt++;
