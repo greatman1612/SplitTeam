@@ -73,16 +73,7 @@ namespace SplitTeam
                 }
                 string player = GetRandomAddRemove(ref lstPlayer);
                 int colIndex = stt % 3 == 0 ? 3 : stt % 3;
-               
-                if(stt<=3)
-                {
-                    dtTeam.Rows[rowIndex][$"A{colIndex}"] = player;
-                }
-                else
-                {
-                    dtTeam.Rows[rowIndex][$"A{colIndex}"] = player;
-                }
-                
+                dtTeam.Rows[rowIndex][$"A{colIndex}"] = player;
                 stt++;
             }
         }
