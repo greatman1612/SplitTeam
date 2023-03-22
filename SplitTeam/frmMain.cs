@@ -29,6 +29,7 @@ namespace SplitTeam
                 RandomAndAddToTable(memGoalKeeper.Text, dtTeam, ref stt);
                 RandomAndAddToTable(memSeedPlayer.Text, dtTeam , ref stt);
                 RandomAndAddToTable(memWeakPlayer.Text, dtTeam, ref stt);
+                RandomAndAddToTable(memSubstitutePlayer.Text, dtTeam, ref stt);
                 grdTeam.DataSource = dtTeam;
 
             }
@@ -93,6 +94,23 @@ namespace SplitTeam
                 if (string.IsNullOrEmpty(lst[i])) lst.RemoveAt(i);
             }
             return lst;
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                if (dtTeam != null)
+                {
+                    dtTeam.Rows.Clear();
+                    grdTeam.RefreshDataSource();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
