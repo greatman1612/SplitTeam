@@ -31,6 +31,8 @@ namespace SplitTeam
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.btnClear = new DevExpress.XtraEditors.SimpleButton();
+            this.memSubstitutePlayer = new DevExpress.XtraEditors.MemoEdit();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.grdTeam = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -48,12 +50,11 @@ namespace SplitTeam
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.memSubstitutePlayer = new DevExpress.XtraEditors.MemoEdit();
             this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.btnClear = new DevExpress.XtraEditors.SimpleButton();
             this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.memSubstitutePlayer.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdTeam)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.memSeedPlayer.Properties)).BeginInit();
@@ -67,7 +68,6 @@ namespace SplitTeam
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.memSubstitutePlayer.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
             this.SuspendLayout();
@@ -88,6 +88,26 @@ namespace SplitTeam
             this.layoutControl1.Size = new System.Drawing.Size(1460, 874);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // btnClear
+            // 
+            this.btnClear.Appearance.Font = new System.Drawing.Font("Tahoma", 17F);
+            this.btnClear.Appearance.Options.UseFont = true;
+            this.btnClear.Location = new System.Drawing.Point(717, 378);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(183, 61);
+            this.btnClear.StyleController = this.layoutControl1;
+            this.btnClear.TabIndex = 10;
+            this.btnClear.Text = "Clear";
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // memSubstitutePlayer
+            // 
+            this.memSubstitutePlayer.Location = new System.Drawing.Point(1094, 27);
+            this.memSubstitutePlayer.Name = "memSubstitutePlayer";
+            this.memSubstitutePlayer.Size = new System.Drawing.Size(363, 345);
+            this.memSubstitutePlayer.StyleController = this.layoutControl1;
+            this.memSubstitutePlayer.TabIndex = 9;
             // 
             // simpleButton1
             // 
@@ -264,14 +284,6 @@ namespace SplitTeam
             this.emptySpaceItem2.Size = new System.Drawing.Size(557, 67);
             this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // memSubstitutePlayer
-            // 
-            this.memSubstitutePlayer.Location = new System.Drawing.Point(1094, 27);
-            this.memSubstitutePlayer.Name = "memSubstitutePlayer";
-            this.memSubstitutePlayer.Size = new System.Drawing.Size(363, 345);
-            this.memSubstitutePlayer.StyleController = this.layoutControl1;
-            this.memSubstitutePlayer.TabIndex = 9;
-            // 
             // layoutControlItem6
             // 
             this.layoutControlItem6.Control = this.memSubstitutePlayer;
@@ -281,18 +293,6 @@ namespace SplitTeam
             this.layoutControlItem6.Text = "Substitute player";
             this.layoutControlItem6.TextLocation = DevExpress.Utils.Locations.Top;
             this.layoutControlItem6.TextSize = new System.Drawing.Size(118, 19);
-            // 
-            // btnClear
-            // 
-            this.btnClear.Appearance.Font = new System.Drawing.Font("Tahoma", 17F);
-            this.btnClear.Appearance.Options.UseFont = true;
-            this.btnClear.Location = new System.Drawing.Point(717, 378);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(183, 61);
-            this.btnClear.StyleController = this.layoutControl1;
-            this.btnClear.TabIndex = 10;
-            this.btnClear.Text = "Clear";
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // layoutControlItem7
             // 
@@ -315,10 +315,11 @@ namespace SplitTeam
             this.Name = "frmMain";
             this.Padding = new System.Windows.Forms.Padding(5);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Split Team Football";
+            this.Text = "Split Team Football - Design by Soft Viet (softviet.vn)";
             this.Load += new System.EventHandler(this.frmMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.memSubstitutePlayer.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grdTeam)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.memSeedPlayer.Properties)).EndInit();
@@ -332,7 +333,6 @@ namespace SplitTeam
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.memSubstitutePlayer.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
             this.ResumeLayout(false);
