@@ -19,13 +19,16 @@ namespace SplitTeam
         }
         Random r = new Random();
         DataTable dtTeam;
+        int TeamNumber = 3;
         private void simpleButton1_Click(object sender, EventArgs e)
         {
-
             try
             {
+                TeamNumber = Misc.ObjInt(speTeamNumber.EditValue);
+                InitGrid();
                 dtTeam.Rows.Clear();
                 int stt = 1;
+                
                 RandomAndAddToTable(memGoalKeeper.Text, dtTeam, ref stt);
                 RandomAndAddToTable(memSeedPlayer.Text, dtTeam , ref stt);
                 RandomAndAddToTable(memWeakPlayer.Text, dtTeam, ref stt);
@@ -43,23 +46,33 @@ namespace SplitTeam
         {
             try
             {
-                if(dtTeam==null)
-                {
-                    dtTeam = new DataTable("SoftViet");
-                    if (!dtTeam.Columns.Contains("A1")) dtTeam.Columns.Add("A1", typeof(string));
-                    if (!dtTeam.Columns.Contains("A2")) dtTeam.Columns.Add("A2", typeof(string));
-                    if (!dtTeam.Columns.Contains("A3")) dtTeam.Columns.Add("A3", typeof(string));
-                }
+                InitGrid();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(this, ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void InitGrid()
+        {
+            if (dtTeam == null)
+            {
+                dtTeam = new DataTable("SoftViet");
+            }
+            for (int i = 1; i <= TeamNumber; i++)
+            {
+                if (grdvTeam.Columns[$"A{i}"] != null) grdvTeam.Columns[$"A{i}"].Visible = true;
+                if (!dtTeam.Columns.Contains($"A{i}")) dtTeam.Columns.Add($"A{i}", typeof(string));
+            }
+            for (int i = TeamNumber + 1; i <= 8; i++)
+            {
+                if (grdvTeam.Columns[$"A{i}"] != null) grdvTeam.Columns[$"A{i}"].Visible = false;
+            }
+        }
         private void RandomAndAddToTable(string players, DataTable dtTeam, ref int stt)
         {
             List<string> lstPlayer = GetListFromString(players);
-            int len = lstPlayer.Count / 3 + (lstPlayer.Count % 3 > 0 ? 1 : 0);
+            int len = lstPlayer.Count / TeamNumber + (lstPlayer.Count % TeamNumber > 0 ? 1 : 0);
             for (int i = 0; i < len; i++)
             {
                 DataRow drNew = dtTeam.NewRow();
@@ -68,12 +81,12 @@ namespace SplitTeam
             while (lstPlayer.Count>0)
             {
                 int rowIndex = 0;
-                if (stt>3)
+                if (stt>TeamNumber)
                 {
-                    rowIndex = stt % 3 == 0 ? stt / 3 - 1 : stt / 3;
+                    rowIndex = stt % TeamNumber == 0 ? stt / TeamNumber - 1 : stt / TeamNumber;
                 }
                 string player = GetRandomAddRemove(ref lstPlayer);
-                int colIndex = stt % 3 == 0 ? 3 : stt % 3;
+                int colIndex = stt % TeamNumber == 0 ? TeamNumber : stt % TeamNumber;
                 dtTeam.Rows[rowIndex][$"A{colIndex}"] = player;
                 stt++;
             }
