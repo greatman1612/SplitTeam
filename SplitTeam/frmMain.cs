@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -20,6 +22,7 @@ namespace SplitTeam
         Random r = new Random();
         DataTable dtTeam;
         int TeamNumber = 3;
+        string playerValueLink = "https://docs.google.com/spreadsheets/d/1KfUK-hjuOzh4kaF7Kk5jtcI9Sz2IdUdY82uz88DWCUk/export?format=csv&id=1KfUK-hjuOzh4kaF7Kk5jtcI9Sz2IdUdY82uz88DWCUk&gid=0";
         private void simpleButton1_Click(object sender, EventArgs e)
         {
             try
@@ -30,8 +33,8 @@ namespace SplitTeam
                 int stt = 1;
                 
                 RandomAndAddToTable(memGoalKeeper.Text, dtTeam, ref stt);
-                RandomAndAddToTable(memSeedPlayer.Text, dtTeam , ref stt);
-                RandomAndAddToTable(memWeakPlayer.Text, dtTeam, ref stt);
+                RandomAndAddToTable(memSeedPlayer_Stricker.Text, dtTeam , ref stt);
+                RandomAndAddToTable(memWeakPlayer_Striker.Text, dtTeam, ref stt);
                 RandomAndAddToTable(memSubstitutePlayer.Text, dtTeam, ref stt);
                 grdTeam.DataSource = dtTeam;
 
@@ -119,6 +122,55 @@ namespace SplitTeam
                     dtTeam.Rows.Clear();
                     grdTeam.RefreshDataSource();
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private const int NumberOfRetries = 3;
+        private const int DelayOnRetry = 1000;
+        private void Sleep(int Interval)
+        {
+            Thread.Sleep(Interval);
+        }
+        public string DownloadGoogle(string url)
+        {
+            string strResponse = "";
+            for (int i = 1; i <= NumberOfRetries; ++i)
+            {
+                try
+                {
+                    Stream objStream;
+                    StreamReader objSR;
+                    System.Text.Encoding encode = System.Text.Encoding.GetEncoding("utf-8");
+
+                    System.Net.HttpWebRequest wrquest = (System.Net.HttpWebRequest)System.Net.WebRequest.Create(url);
+                    System.Net.HttpWebResponse getresponse = null;
+                    getresponse = (System.Net.HttpWebResponse)wrquest.GetResponse();
+
+                    objStream = getresponse.GetResponseStream();
+                    objSR = new StreamReader(objStream, encode, true);
+                    strResponse = objSR.ReadToEnd().Trim();
+
+                    objSR.Close();
+                    objStream.Close();
+                    return strResponse;
+                }
+                catch (Exception e)
+                {
+                    if (i == NumberOfRetries)
+                        throw;
+                    Sleep(DelayOnRetry);
+                }
+            }
+            return strResponse;
+        }
+        private void btnPlayerClassification_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string playerData= DownloadGoogle(playerValueLink);
             }
             catch (Exception ex)
             {
